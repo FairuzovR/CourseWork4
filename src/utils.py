@@ -50,34 +50,31 @@ def user_interaction():
 def сhoosing_action(number):
     """Функция описывает ветку при выборе команды действия
     """
-    if number.isdigit():
-        if int(number) == 1:
-            with open(os.path.join(root_path, 'vacancies.json'), 'r', encoding="utf-8") as json_file:
-                raw_json = json_file.read()
-                data = json.loads(raw_json)
-                for temp in data:
-                    print(f"({temp['title']}, {temp['id']},"
-                          f" {temp['url']}, {temp['salary_from']} - {temp['salary_to']},"
-                          f" {temp['company_name']})")
+    if int(number) == 1:
+        with open(os.path.join(root_path, 'vacancies.json'), 'r', encoding="utf-8") as json_file:
+            raw_json = json_file.read()
+            data = json.loads(raw_json)
+            for temp in data:
+                print(f"({temp['title']}, {temp['id']},"
+                      f" {temp['url']}, {temp['salary_from']} - {temp['salary_to']},"
+                      f" {temp['company_name']})")
 
-        elif int(number) == 2:
-            top_n = int(input("Введите количество вакансий для вывода в топ N:\n"))
-            with open(os.path.join(root_path, 'vacancies.json'), 'r', encoding="utf-8") as json_file:
-                raw_json = json_file.read()
-                data = json.loads(raw_json)
-                for number in range(top_n):
-                    print(f"({data[number]['title']}, {data[number]['id']},"
-                          f" {data[number]['url']}, {data[number]['salary_from']} - {data[number]['salary_to']},"
-                          f" {data[number]['company_name']})")
+    elif int(number) == 2:
+        top_n = int(input("Введите количество вакансий для вывода в топ N:\n"))
+        with open(os.path.join(root_path, 'vacancies.json'), 'r', encoding="utf-8") as json_file:
+            raw_json = json_file.read()
+            data = json.loads(raw_json)
+            for number in range(top_n):
+                print(f"({data[number]['title']}, {data[number]['id']},"
+                      f" {data[number]['url']}, {data[number]['salary_from']} - {data[number]['salary_to']},"
+                      f" {data[number]['company_name']})")
 
-        elif int(number) == 3:
-            vacancy_del = input("Введите id вакансии, которой хотите удалить:\n")
-            if json_saver.del_vacancy(vacancy_del) == 1:
-                json_saver.del_vacancy(vacancy_del)
-                print("Вакансия удалена")
-            elif json_saver.del_vacancy(vacancy_del) == 0:
-                print("Вакансия не удалена, так как не найдена в хранилище списков")
-        else:
-            print("Неверный выбор действия")
+    elif int(number) == 3:
+        vacancy_del = input("Введите id вакансии, которой хотите удалить:\n")
+        if json_saver.del_vacancy(vacancy_del) == 1:
+            json_saver.del_vacancy(vacancy_del)
+            print("Вакансия удалена")
+        elif json_saver.del_vacancy(vacancy_del) == 0:
+            print("Вакансия не удалена, так как не найдена в хранилище списков")
     else:
         print("Неверный выбор действия")
